@@ -9961,6 +9961,57 @@ struct COMMAND_ARG DECRBY_Args[] = {
 {MAKE_ARG("decrement",ARG_TYPE_INTEGER,-1,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
 };
 
+/********** DECRBYTOP ********************/
+
+#ifndef SKIP_CMD_HISTORY_TABLE
+/* DECRBYTOP history */
+#define DECRBYTOP_History NULL
+#endif
+
+#ifndef SKIP_CMD_TIPS_TABLE
+/* DECRBYTOP tips */
+#define DECRBYTOP_Tips NULL
+#endif
+
+#ifndef SKIP_CMD_KEY_SPECS_TABLE
+/* DECRBYTOP key specs */
+keySpec DECRBYTOP_Keyspecs[1] = {
+{NULL,CMD_KEY_RW|CMD_KEY_ACCESS|CMD_KEY_UPDATE,KSPEC_BS_INDEX,.bs.index={1},KSPEC_FK_RANGE,.fk.range={0,1,0}}
+};
+#endif
+
+/* DECRBYTOP argument table */
+struct COMMAND_ARG DECRBYTOP_Args[] = {
+{MAKE_ARG("key",ARG_TYPE_KEY,0,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+{MAKE_ARG("decrement",ARG_TYPE_INTEGER,-1,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+{MAKE_ARG("bottom",ARG_TYPE_INTEGER,-1,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+};
+
+/********** DECRTOP ********************/
+
+#ifndef SKIP_CMD_HISTORY_TABLE
+/* DECRTOP history */
+#define DECRTOP_History NULL
+#endif
+
+#ifndef SKIP_CMD_TIPS_TABLE
+/* DECRTOP tips */
+#define DECRTOP_Tips NULL
+#endif
+
+#ifndef SKIP_CMD_KEY_SPECS_TABLE
+/* DECRTOP key specs */
+keySpec DECRTOP_Keyspecs[1] = {
+{NULL,CMD_KEY_RW|CMD_KEY_ACCESS|CMD_KEY_UPDATE,KSPEC_BS_INDEX,.bs.index={1},KSPEC_FK_RANGE,.fk.range={0,1,0}}
+};
+#endif
+
+/* DECRTOP argument table */
+struct COMMAND_ARG DECRTOP_Args[] = {
+{MAKE_ARG("key",ARG_TYPE_KEY,0,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+{MAKE_ARG("bottom",ARG_TYPE_INTEGER,-1,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+};
+
 /********** GET ********************/
 
 #ifndef SKIP_CMD_HISTORY_TABLE
@@ -10166,6 +10217,57 @@ keySpec INCRBYFLOAT_Keyspecs[1] = {
 struct COMMAND_ARG INCRBYFLOAT_Args[] = {
 {MAKE_ARG("key",ARG_TYPE_KEY,0,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
 {MAKE_ARG("increment",ARG_TYPE_DOUBLE,-1,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+};
+
+/********** INCRBYTOP ********************/
+
+#ifndef SKIP_CMD_HISTORY_TABLE
+/* INCRBYTOP history */
+#define INCRBYTOP_History NULL
+#endif
+
+#ifndef SKIP_CMD_TIPS_TABLE
+/* INCRBYTOP tips */
+#define INCRBYTOP_Tips NULL
+#endif
+
+#ifndef SKIP_CMD_KEY_SPECS_TABLE
+/* INCRBYTOP key specs */
+keySpec INCRBYTOP_Keyspecs[1] = {
+{NULL,CMD_KEY_RW|CMD_KEY_ACCESS|CMD_KEY_UPDATE,KSPEC_BS_INDEX,.bs.index={1},KSPEC_FK_RANGE,.fk.range={0,1,0}}
+};
+#endif
+
+/* INCRBYTOP argument table */
+struct COMMAND_ARG INCRBYTOP_Args[] = {
+{MAKE_ARG("key",ARG_TYPE_KEY,0,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+{MAKE_ARG("increment",ARG_TYPE_INTEGER,-1,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+{MAKE_ARG("top",ARG_TYPE_INTEGER,-1,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+};
+
+/********** INCRTOP ********************/
+
+#ifndef SKIP_CMD_HISTORY_TABLE
+/* INCRTOP history */
+#define INCRTOP_History NULL
+#endif
+
+#ifndef SKIP_CMD_TIPS_TABLE
+/* INCRTOP tips */
+#define INCRTOP_Tips NULL
+#endif
+
+#ifndef SKIP_CMD_KEY_SPECS_TABLE
+/* INCRTOP key specs */
+keySpec INCRTOP_Keyspecs[1] = {
+{NULL,CMD_KEY_RW|CMD_KEY_ACCESS|CMD_KEY_UPDATE,KSPEC_BS_INDEX,.bs.index={1},KSPEC_FK_RANGE,.fk.range={0,1,0}}
+};
+#endif
+
+/* INCRTOP argument table */
+struct COMMAND_ARG INCRTOP_Args[] = {
+{MAKE_ARG("key",ARG_TYPE_KEY,0,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
+{MAKE_ARG("top",ARG_TYPE_INTEGER,-1,NULL,NULL,NULL,CMD_ARG_NONE,0,NULL)},
 };
 
 /********** LCS ********************/
@@ -10815,6 +10917,8 @@ struct COMMAND_STRUCT redisCommandTable[] = {
 {MAKE_CMD("append","Appends a string to the value of a key. Creates the key if it doesn't exist.","O(1). The amortized time complexity is O(1) assuming the appended value is small and the already present value is of any size, since the dynamic string library used by Redis will double the free space available on every reallocation.","2.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,APPEND_History,0,APPEND_Tips,0,appendCommand,3,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,APPEND_Keyspecs,1,NULL,2),.args=APPEND_Args},
 {MAKE_CMD("decr","Decrements the integer value of a key by one. Uses 0 as initial value if the key doesn't exist.","O(1)","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,DECR_History,0,DECR_Tips,0,decrCommand,2,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,DECR_Keyspecs,1,NULL,1),.args=DECR_Args},
 {MAKE_CMD("decrby","Decrements a number from the integer value of a key. Uses 0 as initial value if the key doesn't exist.","O(1)","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,DECRBY_History,0,DECRBY_Tips,0,decrbyCommand,3,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,DECRBY_Keyspecs,1,NULL,2),.args=DECRBY_Args},
+{MAKE_CMD("decrbytop","Decrements a number from the integer value of a key until bottom. Uses 0 as initial value if the key doesn't exist.","O(1)","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,DECRBYTOP_History,0,DECRBYTOP_Tips,0,decrbytopCommand,4,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,DECRBYTOP_Keyspecs,1,NULL,3),.args=DECRBYTOP_Args},
+{MAKE_CMD("decrtop","Decrements the integer value of a key by one until bottom. Uses 0 as initial value if the key doesn't exist.","O(1)","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,DECRTOP_History,0,DECRTOP_Tips,0,decrtopCommand,3,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,DECRTOP_Keyspecs,1,NULL,2),.args=DECRTOP_Args},
 {MAKE_CMD("get","Returns the string value of a key.","O(1)","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,GET_History,0,GET_Tips,0,getCommand,2,CMD_READONLY|CMD_FAST,ACL_CATEGORY_STRING,GET_Keyspecs,1,NULL,1),.args=GET_Args},
 {MAKE_CMD("getdel","Returns the string value of a key after deleting the key.","O(1)","6.2.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,GETDEL_History,0,GETDEL_Tips,0,getdelCommand,2,CMD_WRITE|CMD_FAST,ACL_CATEGORY_STRING,GETDEL_Keyspecs,1,NULL,1),.args=GETDEL_Args},
 {MAKE_CMD("getex","Returns the string value of a key after setting its expiration time.","O(1)","6.2.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,GETEX_History,0,GETEX_Tips,0,getexCommand,-2,CMD_WRITE|CMD_FAST,ACL_CATEGORY_STRING,GETEX_Keyspecs,1,NULL,2),.args=GETEX_Args},
@@ -10823,6 +10927,8 @@ struct COMMAND_STRUCT redisCommandTable[] = {
 {MAKE_CMD("incr","Increments the integer value of a key by one. Uses 0 as initial value if the key doesn't exist.","O(1)","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,INCR_History,0,INCR_Tips,0,incrCommand,2,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,INCR_Keyspecs,1,NULL,1),.args=INCR_Args},
 {MAKE_CMD("incrby","Increments the integer value of a key by a number. Uses 0 as initial value if the key doesn't exist.","O(1)","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,INCRBY_History,0,INCRBY_Tips,0,incrbyCommand,3,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,INCRBY_Keyspecs,1,NULL,2),.args=INCRBY_Args},
 {MAKE_CMD("incrbyfloat","Increment the floating point value of a key by a number. Uses 0 as initial value if the key doesn't exist.","O(1)","2.6.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,INCRBYFLOAT_History,0,INCRBYFLOAT_Tips,0,incrbyfloatCommand,3,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,INCRBYFLOAT_Keyspecs,1,NULL,2),.args=INCRBYFLOAT_Args},
+{MAKE_CMD("incrbytop","Increments the integer value of a key by a number until top. Uses 0 as initial value if the key doesn't exist.","O(1)","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,INCRBYTOP_History,0,INCRBYTOP_Tips,0,incrbytopCommand,4,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,INCRBYTOP_Keyspecs,1,NULL,3),.args=INCRBYTOP_Args},
+{MAKE_CMD("incrtop","Increments the integer value of a key by one until top. Uses 0 as initial value if the key doesn't exist.","O(1)","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,INCRTOP_History,0,INCRTOP_Tips,0,incrtopCommand,3,CMD_WRITE|CMD_DENYOOM|CMD_FAST,ACL_CATEGORY_STRING,INCRTOP_Keyspecs,1,NULL,2),.args=INCRTOP_Args},
 {MAKE_CMD("lcs","Finds the longest common substring.","O(N*M) where N and M are the lengths of s1 and s2, respectively","7.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,LCS_History,0,LCS_Tips,0,lcsCommand,-3,CMD_READONLY,ACL_CATEGORY_STRING,LCS_Keyspecs,1,NULL,6),.args=LCS_Args},
 {MAKE_CMD("mget","Atomically returns the string values of one or more keys.","O(N) where N is the number of keys to retrieve.","1.0.0",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,MGET_History,0,MGET_Tips,1,mgetCommand,-2,CMD_READONLY|CMD_FAST,ACL_CATEGORY_STRING,MGET_Keyspecs,1,NULL,1),.args=MGET_Args},
 {MAKE_CMD("mset","Atomically creates or modifies the string values of one or more keys.","O(N) where N is the number of keys to set.","1.0.1",CMD_DOC_NONE,NULL,NULL,"string",COMMAND_GROUP_STRING,MSET_History,0,MSET_Tips,2,msetCommand,-3,CMD_WRITE|CMD_DENYOOM,ACL_CATEGORY_STRING,MSET_Keyspecs,1,NULL,1),.args=MSET_Args},
